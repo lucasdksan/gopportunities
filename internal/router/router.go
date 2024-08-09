@@ -1,11 +1,17 @@
 package router
 
-import "github.com/gin-gonic/gin"
+import (
+	"gopportunities/internal/controller"
+	"gopportunities/internal/usecase"
 
-func Initialize() {
+	"github.com/gin-gonic/gin"
+)
+
+func Initialize(opportunityUsecase usecase.OpportunityUsecase) {
 	router := gin.Default()
+	OpportunityController := controller.NewOpportunityController(opportunityUsecase)
 
-	initializeRoutes(router)
+	initializeRoutes(router, OpportunityController)
 
 	router.Run(":8080")
 }
