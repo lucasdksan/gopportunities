@@ -2,6 +2,7 @@ package controller
 
 import (
 	"gopportunities/internal/usecase"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -16,8 +17,32 @@ func NewOpportunityController(usecase usecase.OpportunityUsecase) OpportunityCon
 	}
 }
 
-func (c *OpportunityController) GetOpportunity(ctx *gin.Context)    {}
-func (c *OpportunityController) CreateOpportunity(ctx *gin.Context) {}
-func (c *OpportunityController) UpdateOpportunity(ctx *gin.Context) {}
-func (c *OpportunityController) DeleteOpportunity(ctx *gin.Context) {}
-func (c *OpportunityController) ListOpportunity(ctx *gin.Context)   {}
+func (c *OpportunityController) GetOpportunity(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK, gin.H{
+		"msg": "GET Opening",
+	})
+}
+
+func (c *OpportunityController) CreateOpportunity(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK, gin.H{
+		"msg": "POST Opening",
+	})
+}
+
+func (c *OpportunityController) UpdateOpportunity(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK, gin.H{
+		"msg": "PUT Opening",
+	})
+}
+
+func (c *OpportunityController) DeleteOpportunity(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK, gin.H{
+		"msg": "DELETE Opening",
+	})
+}
+
+func (c *OpportunityController) ListOpportunity(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK, gin.H{
+		"msg": "LIST Opening",
+	})
+}

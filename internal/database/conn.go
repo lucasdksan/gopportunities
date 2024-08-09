@@ -3,14 +3,16 @@ package database
 import (
 	"database/sql"
 	"fmt"
+
+	_ "github.com/lib/pq"
 )
 
 const (
-	host     = "go_db"
+	host     = "localhost"
 	port     = 5432
 	user     = "postgres"
 	password = "1234"
-	dbname   = "postgres"
+	dbname   = "opportunity"
 )
 
 func ConnectDB() (*sql.DB, error) {
