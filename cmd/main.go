@@ -16,6 +16,8 @@ var (
 func main() {
 	logger = *configs.GetLogger("Main")
 
+	configs.InitializeEnv()
+
 	dbConnection, err := database.ConnectDB()
 
 	if errConfig := configs.Init(); errConfig != nil {
