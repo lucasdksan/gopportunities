@@ -2,7 +2,6 @@ package main
 
 import (
 	"gopportunities/configs"
-	"gopportunities/internal/database"
 	"gopportunities/internal/repository"
 	"gopportunities/internal/router"
 	"gopportunities/internal/tools"
@@ -16,18 +15,12 @@ var (
 func main() {
 	logger = *configs.GetLogger("Main")
 
-	configs.InitializeEnv()
-
-	dbConnection, err := database.ConnectDB()
-
 	if errConfig := configs.Init(); errConfig != nil {
-		logger.Errf("Config initialization error: %v", err)
+		logger.Errf("Config initialization error: %v", errConfig)
 		return
 	}
 
-	if err != nil {
-		panic(err)
-	}
+	dbConnection := configs.GetPostgres()
 
 	OpportunityRepository := repository.NewOpportunityRepository(dbConnection)
 	OpportunityUseCase := usecase.NewOpportunityUsecase(OpportunityRepository)

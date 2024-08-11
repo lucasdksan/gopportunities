@@ -1,12 +1,14 @@
 package repository
 
-import "database/sql"
+import (
+	"gorm.io/gorm"
+)
 
 type OpportunityRepository struct {
-	connection *sql.DB
+	connection *gorm.DB
 }
 
-func NewOpportunityRepository(connnection *sql.DB) OpportunityRepository {
+func NewOpportunityRepository(connnection *gorm.DB) OpportunityRepository {
 	return OpportunityRepository{
 		connection: connnection,
 	}

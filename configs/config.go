@@ -15,6 +15,8 @@ var (
 func Init() error {
 	var err error
 
+	InitializeEnv()
+
 	db, err = InitializePostgres()
 
 	if err != nil {
