@@ -17,7 +17,6 @@ var (
 	User_db                = ""
 	Password_db            = ""
 	Database               = ""
-	Secret_key             []byte
 )
 
 func InitializeEnv() {
@@ -47,6 +46,4 @@ func InitializeEnv() {
 	Bank_connection_string = fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=disable",
 		Host_db, Port_db, User_db, Password_db, Database)
-
-	Secret_key = []byte(os.Getenv("SECRET_KEY"))
 }
