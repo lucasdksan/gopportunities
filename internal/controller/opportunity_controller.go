@@ -83,7 +83,12 @@ func (c *OpportunityController) DeleteOpportunity(ctx *gin.Context) {
 }
 
 func (c *OpportunityController) ListOpportunity(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, gin.H{
-		"msg": "LIST Opening",
-	})
+	openings, err := c.OpportunityUsecase.ListOpportunity()
+
+	if err != nil {
+		tools.SendError(ctx, http.StatusInternalServerError, "error listing openings")
+		return
+	}
+
+	tools.SendSuccess(ctx, "listing-openigs", openings)
 }

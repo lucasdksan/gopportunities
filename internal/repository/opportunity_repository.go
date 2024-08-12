@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"gopportunities/internal/model"
 	"gopportunities/internal/schemas"
 
 	"gorm.io/gorm"
@@ -30,4 +31,14 @@ func (r *OpportunityRepository) DeleteOpportunity(id string, opening *schemas.Op
 	}
 
 	return nil
+}
+
+func (r *OpportunityRepository) ListOpportunity() ([]model.Opening, error) {
+	opening := []model.Opening{}
+
+	if err := r.connection.Find(&opening).Error; err != nil {
+		return []model.Opening{}, err
+	}
+
+	return opening, nil
 }

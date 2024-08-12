@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"gopportunities/internal/model"
 	"gopportunities/internal/repository"
 	"gopportunities/internal/schemas"
 )
@@ -27,4 +28,14 @@ func (u *OpportunityUsecase) DeleteOpportunity(id string, opening *schemas.Openi
 	}
 
 	return nil
+}
+
+func (u *OpportunityUsecase) ListOpportunity() ([]model.Opening, error) {
+	openings, err := u.repository.ListOpportunity()
+
+	if err != nil {
+		return []model.Opening{}, err
+	}
+
+	return openings, nil
 }
