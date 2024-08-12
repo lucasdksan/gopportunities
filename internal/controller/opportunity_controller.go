@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"gopportunities/configs"
 	"gopportunities/internal/model"
 	"gopportunities/internal/schemas"
@@ -64,9 +65,21 @@ func (c *OpportunityController) UpdateOpportunity(ctx *gin.Context) {
 }
 
 func (c *OpportunityController) DeleteOpportunity(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, gin.H{
-		"msg": "DELETE Opening",
-	})
+	id := ctx.Query("id")
+
+	if id == "" {
+		tools.SendError(ctx, http.StatusBadRequest, tools.ErrParamIsRequired("id", "queryParameter").Error())
+		return
+	}
+
+	opening := schemas.Opening{}
+
+	if err := c.OpportunityUsecase.DeleteOpportunity(id, &opening); err != nil {
+		tools.SendError(ctx, http.StatusInternalServerError, fmt.Sprintf("error deleting opening with id: %s", id))
+		return
+	}
+
+	tools.SendSuccess(ctx, "delete-opening", opening)
 }
 
 func (c *OpportunityController) ListOpportunity(ctx *gin.Context) {

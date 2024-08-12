@@ -23,3 +23,11 @@ func (r *OpportunityRepository) CreateOpportunity(opening *schemas.Opening) erro
 
 	return nil
 }
+
+func (r *OpportunityRepository) DeleteOpportunity(id string, opening *schemas.Opening) error {
+	if err := r.connection.Delete(opening, id).Error; err != nil {
+		return err
+	}
+
+	return nil
+}

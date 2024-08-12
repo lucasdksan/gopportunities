@@ -1,6 +1,9 @@
 package model
 
-import "fmt"
+import (
+	"fmt"
+	"gopportunities/internal/tools"
+)
 
 type CreateOpeningRequest struct {
 	Role     string `json:"role"`
@@ -11,37 +14,33 @@ type CreateOpeningRequest struct {
 	Salary   int64  `json:"salary"`
 }
 
-func errParamIsRequired(name, value string) error {
-	return fmt.Errorf("param: %s (type: %s) is required", name, value)
-}
-
 func (m *CreateOpeningRequest) Validate() error {
 	if m.Role == "" && m.Company == "" && m.Link == "" && m.Location == "" && m.Remote != nil && m.Salary <= 0 {
 		return fmt.Errorf("request body is empty")
 	}
 
 	if m.Role == "" {
-		return errParamIsRequired("role", "string")
+		return tools.ErrParamIsRequired("role", "string")
 	}
 
 	if m.Company == "" {
-		return errParamIsRequired("company", "string")
+		return tools.ErrParamIsRequired("company", "string")
 	}
 
 	if m.Link == "" {
-		return errParamIsRequired("link", "string")
+		return tools.ErrParamIsRequired("link", "string")
 	}
 
 	if m.Location == "" {
-		return errParamIsRequired("location", "string")
+		return tools.ErrParamIsRequired("location", "string")
 	}
 
 	if m.Remote == nil {
-		return errParamIsRequired("remote", "null")
+		return tools.ErrParamIsRequired("remote", "null")
 	}
 
 	if m.Salary <= 0 {
-		return errParamIsRequired("salary", "int64")
+		return tools.ErrParamIsRequired("salary", "int64")
 	}
 
 	return nil

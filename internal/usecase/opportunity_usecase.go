@@ -20,3 +20,11 @@ func (u *OpportunityUsecase) CreateOpportunity(opening *schemas.Opening) error {
 
 	return nil
 }
+
+func (u *OpportunityUsecase) DeleteOpportunity(id string, opening *schemas.Opening) error {
+	if err := u.repository.DeleteOpportunity(id, opening); err != nil {
+		return err
+	}
+
+	return nil
+}
