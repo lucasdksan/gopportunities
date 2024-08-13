@@ -34,10 +34,20 @@ func (r *OpportunityRepository) DeleteOpportunity(id string, opening *schemas.Op
 }
 
 func (r *OpportunityRepository) ListOpportunity() ([]model.Opening, error) {
-	opening := []model.Opening{}
+	openings := []model.Opening{}
 
-	if err := r.connection.Find(&opening).Error; err != nil {
+	if err := r.connection.Find(&openings).Error; err != nil {
 		return []model.Opening{}, err
+	}
+
+	return openings, nil
+}
+
+func (r *OpportunityRepository) GetOpportunity(id string) (model.Opening, error) {
+	opening := model.Opening{}
+
+	if err := r.connection.First(&opening, id).Error; err != nil {
+		return model.Opening{}, err
 	}
 
 	return opening, nil

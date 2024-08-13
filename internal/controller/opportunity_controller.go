@@ -23,9 +23,23 @@ func NewOpportunityController(usecase usecase.OpportunityUsecase) OpportunityCon
 }
 
 func (c *OpportunityController) GetOpportunity(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, gin.H{
-		"msg": "GET Opening",
-	})
+	id := ctx.Query("id")
+	logger := configs.GetLogger("Main")
+
+	if id == "" {
+		tools.SendError(ctx, http.StatusBadRequest, tools.ErrParamIsRequired("id", "queryParameter").Error())
+		return
+	}
+
+	opening, err := c.OpportunityUsecase.GetOpportunity(id)
+
+	if err != nil {
+		logger.Errf("error creating opening: %v", err.Error())
+		tools.SendError(ctx, http.StatusInternalServerError, "opening not found")
+		return
+	}
+
+	tools.SendSuccess(ctx, "show-opening", opening)
 }
 
 func (c *OpportunityController) CreateOpportunity(ctx *gin.Context) {

@@ -39,3 +39,13 @@ func (u *OpportunityUsecase) ListOpportunity() ([]model.Opening, error) {
 
 	return openings, nil
 }
+
+func (u *OpportunityUsecase) GetOpportunity(id string) (model.Opening, error) {
+	opening, err := u.repository.GetOpportunity(id)
+
+	if err != nil {
+		return model.Opening{}, err
+	}
+
+	return opening, nil
+}
