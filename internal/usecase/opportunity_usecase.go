@@ -49,3 +49,19 @@ func (u *OpportunityUsecase) GetOpportunity(id string) (model.Opening, error) {
 
 	return opening, nil
 }
+
+func (u *OpportunityUsecase) UpdateOpportunity(opening *schemas.Opening) error {
+	if err := u.repository.UpdateOpportunity(opening); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (u *OpportunityUsecase) ValidateOpportunity(id string, opening *schemas.Opening) error {
+	if err := u.repository.ValidateOpportunity(id, opening); err != nil {
+		return err
+	}
+
+	return nil
+}

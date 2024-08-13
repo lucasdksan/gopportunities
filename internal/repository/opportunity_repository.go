@@ -52,3 +52,19 @@ func (r *OpportunityRepository) GetOpportunity(id string) (model.Opening, error)
 
 	return opening, nil
 }
+
+func (r *OpportunityRepository) UpdateOpportunity(opening *schemas.Opening) error {
+	if err := r.connection.Save(&opening).Error; err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (r *OpportunityRepository) ValidateOpportunity(id string, opening *schemas.Opening) error {
+	if err := r.connection.First(&opening, id).Error; err != nil {
+		return err
+	}
+
+	return nil
+}
